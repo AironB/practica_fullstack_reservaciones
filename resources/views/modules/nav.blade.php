@@ -26,7 +26,7 @@
             <a class="nav-link" href="{{ url('/accomodations') }}">Gestion de alojamientos</a>
           </li>
                 <li class="nav-item">
-            <a class="nav-link" href="{{ url('bookings') }}">Gestion de reservaciones</a>
+            <a class="nav-link" href="{{ url('/formulario') }}">Registro de reservaciones</a>
           </li>
         </ul>
       </div>

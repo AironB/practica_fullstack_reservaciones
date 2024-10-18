@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Bookings;
 use Illuminate\Http\Request;
 use App\Models\Accomodations;
@@ -25,5 +26,27 @@ class BookingsController extends Controller
         return view('pages.bookings',array(
             "accomodations"=>$acomodations,
             "bookings"=>$bookings));
+    }
+    //metodo para crear reservaciones
+    public function getForm(){
+        $accomodations = Accomodations::select('id', 'name as accomodation')->get();
+        $users = User::select('id','name as user')->get();
+       //esta funcion sirve para testear si se esta enviando data
+        //dd($accomodations);
+        return view('pages.register_bookings', array([
+            'accomodation' => $accomodations,
+            'users' => $users
+        ]));
+    }
+    //metodo para guardar reservaciones
+    public function save(Request $request){
+        $request->validate([
+            'booking' =>'required|string|max:10',
+            'in_date' => 'required|date_format:Y-m-d',
+            'out_date'=>'required|date_format:Y-m-d|after_or_equal:in_date',
+            'total_amount'=>'required|numeric',
+            'accomodation'=>'required',
+            'user'=>'required'
+        ]);
     }
 }
